@@ -1,0 +1,20 @@
+//to follow the sequence, I grab one element from squence and check it against the unexplored area
+
+
+function isValidSubsequence(array, sequence) {
+  // Write your code here.
+let behindarray = array	
+
+for (i=0; i < sequence.length; i++) {
+	let positioninbehind = behindarray.indexOf(sequence[i]);
+	if (positioninbehind === -1) {return false};
+	behindarray = behindarray.slice(positioninbehind + 1, behindarray.length)
+}
+
+return true
+	
+}
+
+// Do not edit the line below.
+exports.isValidSubsequence = isValidSubsequence;
+
