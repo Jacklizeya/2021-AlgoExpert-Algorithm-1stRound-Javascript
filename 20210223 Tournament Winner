@@ -1,0 +1,23 @@
+function tournamentWinner(competitions, results) {
+    let storage ={};
+      
+      for (i=0; i< competitions.length; i++) 
+      {
+      let homeTeam = competitions[i][0];
+      let awayTeam = competitions[i][1];
+      let score = results[i]; 
+      if (storage[homeTeam] === undefined) {storage[homeTeam] = 0; }
+      if (storage[awayTeam] === undefined) {storage[awayTeam] = 0; }
+      if (score === 1) {storage[homeTeam] ++} else {storage[awayTeam] ++}		
+      }
+      
+     
+      scorearray = Object.values(storage)
+      let highestpoint = scorearray.reduce((a,b)=> {return Math.max(a,b)})
+      let winner = Object.keys(storage)[Object.values(storage).indexOf(highestpoint)]
+      
+    return winner;
+  }
+
+// Do not edit the line below.
+exports.tournamentWinner = tournamentWinner;
