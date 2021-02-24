@@ -13,7 +13,9 @@ function tournamentWinner(competitions, results) {
       
      
       scorearray = Object.values(storage)
-      let highestpoint = scorearray.reduce((a,b)=> {return Math.max(a,b)})
+      let highestpoint = Math.max(...scorearray)
+      //let highestpoint = scorearray.reduce((a,b)=> {return Math.max(a,b)})
+      //I use the spread here to make it easier
       let winner = Object.keys(storage)[Object.values(storage).indexOf(highestpoint)]
       
     return winner;
