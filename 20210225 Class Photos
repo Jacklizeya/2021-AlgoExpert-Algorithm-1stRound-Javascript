@@ -1,0 +1,20 @@
+function classPhotos(redShirtHeights, blueShirtHeights) {
+  
+	redShirtHeights = redShirtHeights.sort((a,b)=>{return a-b})
+  lowestred = redShirtHeights[0]	
+	blueShirtHeights = blueShirtHeights.sort((a,b)=>{return a-b})
+	lowestblue= blueShirtHeights[0]
+	
+	if (lowestred < lowestblue) {for (i =0; i< redShirtHeights.length; i++) 
+	{if(redShirtHeights[i] >= blueShirtHeights[i]) {return false}} return true}
+	
+	else if (lowestred > lowestblue) {for (i =0; i< redShirtHeights.length; i++) 
+	{if(redShirtHeights[i] <= blueShirtHeights[i]) {return false}} return true}
+	
+	else {return false}
+	
+	
+}
+
+// Do not edit the line below.
+exports.classPhotos = classPhotos;
