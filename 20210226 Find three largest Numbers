@@ -1,0 +1,50 @@
+// Solution 1: 
+
+// Use the default sort function
+
+
+function findThreeLargestNumbers(array) {
+  array.sort((a,b)=>{return a-b})
+  return array.slice(array.length-3, array.length)
+	
+	
+	
+	
+}
+
+// Do not edit the line below.
+exports.findThreeLargestNumbers = findThreeLargestNumbers;
+
+
+
+
+
+
+
+
+
+
+
+//Solution 2:
+//Store the largest 3 numbers, update them when scan the array
+
+function findThreeLargestNumbers(array) {
+  let topthree = array.slice(0,3)
+	topthree.sort((a,b)=>{return a-b})	
+	for (i=3; i<array.length; i++) 
+	{
+		
+	let x = array[i];
+	if (x > topthree[0]) {topthree.splice(0,1,x);
+						 if (x > topthree[1]){topthree.splice(0, 2, topthree[1], topthree[0]); 
+												if ( x > topthree[2])	{topthree.splice(1,3, topthree[2], topthree[1]) }				 
+																				 }
+	
+						 }
+	
+	}
+	return topthree
+}
+
+// Do not edit the line below.
+exports.findThreeLargestNumbers = findThreeLargestNumbers;
