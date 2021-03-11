@@ -1,0 +1,40 @@
+// This is an input class. Do not edit.
+class LinkedList {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+function removeDuplicatesFromLinkedList(linkedList) {
+  // Write your code here.
+	let currentNode = linkedList
+	
+	
+	let previousNode = null
+	let previousValue = null
+	
+	if (currentNode === null) {return null}
+	
+	
+// use while currentNode to get it going, as iteration
+	 while(currentNode) {
+   
+// Deal with 2 different situation seperately
+
+		if (currentNode.value === previousValue) {	currentNode = currentNode.next; previousNode.next = currentNode}
+		else {previousNode = currentNode; previousValue = currentNode.value; currentNode = currentNode.next}
+		console.log("currentNode is", currentNode)
+		 
+	}
+	return linkedList
+}
+
+// Do not edit the lines below.
+exports.LinkedList = LinkedList;
+exports.removeDuplicatesFromLinkedList = removeDuplicatesFromLinkedList;
+
+
+
+
+// The solution from AlgoExpert, they use nextDistinctNode to move to next target, very nice way to handle the situation
