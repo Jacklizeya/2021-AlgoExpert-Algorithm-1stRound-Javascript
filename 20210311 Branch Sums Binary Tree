@@ -1,0 +1,35 @@
+//**************the link: https://www.algoexpert.io/questions/Branch%20Sums
+
+//**************This problem has to be solved by depth-first, recursion way
+/*
+
+
+
+*/
+
+// This is the class of the input root.
+// Do not edit it.
+class BinaryTree {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+function branchSums(root, cumulative = root.value, list = []) {
+	
+	console.log("start")
+  // Write your code here.
+	if (root.left === null && root.right === null) { console.log("add"); list.push(cumulative); console.log(cumulative) }
+	if (root.left !== null && root.right === null) { console.log("left"); branchSums(root.left, cumulative + root.left.value, list )}
+	if (root.left === null && root.right !== null) { console.log("right");branchSums(root.right, cumulative + root.right.value, list )}
+	if (root.left !== null && root.right !== null) { console.log("both"); branchSums(root.left, cumulative + root.left.value, list )
+																							  	 branchSums(root.right, cumulative + root.right.value, list)}
+
+	return list
+}
+
+// Do not edit the lines below.
+exports.BinaryTree = BinaryTree;
+exports.branchSums = branchSums;
