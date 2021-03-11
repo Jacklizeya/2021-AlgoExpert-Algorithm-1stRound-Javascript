@@ -1,0 +1,22 @@
+//**** The link: https://www.algoexpert.io/questions/Generate%20Document
+
+
+function generateDocument(characters, document) {
+  // Write your code here.
+	if (characters.length < document.length) {return false}
+	
+	let list = characters.split("")
+	for (i =0; i < document.length; i++){
+			if (list.length ===0 ) {return true}
+			if (list.includes(document[i])) {
+			let position = list.indexOf(document[i]); 
+			list.splice(position, 1)
+			}  else {return false}	
+	} 
+	return true
+	
+	
+}
+
+// Do not edit the line below.
+exports.generateDocument = generateDocument;
