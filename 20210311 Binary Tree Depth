@@ -1,0 +1,62 @@
+//***********this is the link https://www.algoexpert.io/questions/Node%20Depths
+
+
+//*************use breadth first to traversal, and cumulate the depth property
+
+function nodeDepths(root) {
+  // Write your code here.
+	console.log(root)
+	let queue = [root]
+	root["depth"] = 0
+	let sumdepth = 0
+	while (queue.length) {
+	currentNode = queue.shift()
+  sumdepth = sumdepth + currentNode.depth
+	if (currentNode.left !== null) {currentNode.left.depth = currentNode.depth +1; queue.push(currentNode.left)}
+	if (currentNode.right !== null) {currentNode.right.depth = currentNode.depth +1;queue.push(currentNode.right)}
+	}
+	
+	return sumdepth
+}
+
+// This is the class of the input binary tree.
+class BinaryTree {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// Do not edit the line below.
+exports.nodeDepths = nodeDepths;
+
+
+//*****************************solve it in the depth first method
+
+function nodeDepths(root, depth = 0) {
+  // Write your code here.
+	
+	
+	
+	if (root.left === null && root.right === null) {console.log("middle"); return depth}
+	if (root.left === null && root.right !== null) {console.log("right"); return depth + nodeDepths(root.right, depth +1)}
+	if (root.right === null && root.left !== null) {console.log("left"); return depth + nodeDepths(root.left, depth+1)}
+	if (root.right !== null && root.left !== null)  {console.log("both"); return depth + nodeDepths(root.left, depth+1) + nodeDepths(root.right, depth+1)}
+	
+	
+}
+
+// This is the class of the input binary tree.
+class BinaryTree {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// Do not edit the line below.
+exports.nodeDepths = nodeDepths;
+
+
