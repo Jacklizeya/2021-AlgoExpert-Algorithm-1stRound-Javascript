@@ -1,0 +1,32 @@
+//*************************The link: https://www.algoexpert.io/questions/Find%20Closest%20Value%20In%20BST
+//*************************I am using breadth first trasversal here.
+
+function findClosestValueInBst(tree, target) {
+  // Write your code here.
+	let queue = [tree]
+	let minDifference = Math.abs(tree.value - target)
+	let closest = tree.value
+	while (queue.length) {
+	current = queue.shift()	
+	
+	if (Math.abs(current.value - target) < minDifference) {closest = current.value; 
+	minDifference = Math.abs(current.value - target)  }
+		
+	if (current.left !== null) {queue.push(current.left)}
+	if (current.right !== null) {queue.push(current.right)}
+	}	
+	
+	return closest
+}
+
+// This is the class of the input tree. Do not edit.
+class BST {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+
+// Do not edit the line below.
+exports.findClosestValueInBst = findClosestValueInBst;
