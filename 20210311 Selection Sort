@@ -1,0 +1,19 @@
+function selectionSort(array) {
+  // Write your code here.
+	for (i=0; i < array.length-1; i++) {
+		let smallest = array[i]
+		let smallestindex = i
+		
+		for (j=i + 1; j < array.length; j++) {
+		if (array[j] < smallest) {smallest = array[j]; smallestindex = j; }
+		}
+		
+		if (smallestindex > i) {let tem = array[i]; array[i] = array[smallestindex]; array[smallestindex] = tem}
+		
+	}	
+	return array
+	
+}
+
+// Do not edit the line below.
+exports.selectionSort = selectionSort;
