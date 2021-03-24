@@ -1,0 +1,50 @@
+// Solution 1: nest for loop
+
+function threeNumberSum(array, targetSum) {
+  // Write your code here.
+	array.sort((a,b) => {return a-b})
+	let length = array.length
+	let result = []
+	for (i=0; i< length-2; i++) {
+		for (j=i+1; j< length-1; j++) {
+			for (k= j+1; k < length; k++) {
+				if( array[i] + array[j] + array[k] === targetSum)
+				{result.push([array[i] , array[j] , array[k]])}
+			}
+		}
+	}
+	
+	return result
+	
+}
+
+// Do not edit the line below.
+exports.threeNumberSum = threeNumberSum;
+
+
+
+// Solution 2: double pointers!
+
+function threeNumberSum(array, targetSum) {
+  // Write your code here.
+	array.sort((a,b) => {return a-b})
+	let length = array.length
+	let result = []
+	for (i=0; i< length-2; i++) {
+		leftpointer = i + 1
+		rightpointer = length-1
+		
+		while (leftpointer < rightpointer) {
+			if (array[leftpointer] + array[i] + array[rightpointer]  === targetSum) {
+			result.push( [array[i] ,array[leftpointer],array[rightpointer]]); leftpointer++;rightpointer--}
+			else if (array[leftpointer] + array[i] + array[rightpointer]  < targetSum) {leftpointer++}
+			else {rightpointer --}
+			}
+	}
+	
+	return result
+	
+}
+
+// Do not edit the line below.
+exports.threeNumberSum = threeNumberSum;
