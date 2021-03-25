@@ -1,4 +1,4 @@
-// Solution on March 24, can deal with 90% of the situation but failed on one test case? How to fix it?
+// this is able to solve 90% of the problem, but failed one test case.
 
 function spiralTraverse(array, output =[]) {
     // Write your code here.
@@ -21,8 +21,7 @@ function spiralTraverse(array, output =[]) {
       
       //console.log("one Round", output, array)
 
-      spiralTraverse(array, output)
-      return output
+      return spiralTraverse(array, output)
       //console.log("before return", output)
       
       
