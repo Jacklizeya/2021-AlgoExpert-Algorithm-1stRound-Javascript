@@ -1,15 +1,14 @@
-// this is able to solve 90% of the problem, but failed one test case.
-
 function spiralTraverse(array, output =[]) {
     // Write your code here.
   		
 	
 	
       let row = array.length   
-      if (row === 0 ) {/*console.log("1", output)*/; return output}
+      if (row === 0 ) {/*there is zero row*/; return output}
       if (row === 1) {console.log("2");output = output.concat(array[0]); return output}
 
       let column = array[0].length;
+			if (column === 0) {/*there is zero column*/return output}
       if (column === 1) {console.log("3");array.forEach( a => output = output.concat(a)); 
 			return output}
       
