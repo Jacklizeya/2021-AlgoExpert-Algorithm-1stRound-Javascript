@@ -1,0 +1,26 @@
+// Regular loop to solve the problem
+
+function smallestDifference(arrayOne, arrayTwo) {
+  // Write your code here.
+	let minDifference = Infinity //get this idea from Dikaistra algorithm
+	let numberFromOne 
+	let numberFromTwo 
+	for (i=0; i< arrayOne.length; i++) {
+		for (j=0; j<arrayTwo.length; j++) {
+			difference = Math.abs(arrayOne[i] - arrayTwo[j])
+			if( difference < minDifference) {
+			minDifference = difference
+			numberFromOne = arrayOne[i]
+			numberFromTwo = arrayTwo[j]
+			}
+		}
+	}
+	
+	return [numberFromOne, numberFromTwo]			 
+}
+
+// Do not edit the line below.
+exports.smallestDifference = smallestDifference;
+
+
+// There is a better way that needs to be explored
