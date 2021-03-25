@@ -1,0 +1,31 @@
+// Solution on March 24, can deal with 90% of the situation but failed on one test case? How to fix it?
+
+function spiralTraverse(array, output =[]) {
+    // Write your code here.
+  		
+	
+	
+      let row = array.length   
+      if (row === 0 ) {/*console.log("1", output)*/; return output}
+      if (row === 1) {console.log("2");output = output.concat(array[0]); return output}
+
+      let column = array[0].length;
+      if (column === 1) {console.log("3");array.forEach( a => output = output.concat(a)); 
+			return output}
+      
+
+      output = output.concat(array.shift())
+      for ( n = 0; n < row -2; n ++) {output.push(array[n].pop())}; 
+      output = output.concat(array.pop().reverse())
+      for ( s = row-3; s >= 0; s--) {output.push(array[s].shift()) }
+      
+      //console.log("one Round", output, array)
+
+      spiralTraverse(array, output)
+      return output
+      //console.log("before return", output)
+      
+      
+  }
+// Do not edit the line below.
+exports.spiralTraverse = spiralTraverse;
