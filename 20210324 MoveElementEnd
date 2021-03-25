@@ -1,0 +1,16 @@
+function moveElementToEnd(array, toMove) {
+  // Write your code here.
+	let tail = []
+	for (i=0; i < array.length; i++)
+		{
+			if (array[i] === toMove) {
+				array.splice(i, 1);
+				tail.push(toMove);
+			  i--
+			}
+		}	
+	return array.concat(tail)
+}
+
+// Do not edit the line below.
+exports.moveElementToEnd = moveElementToEnd;
