@@ -66,3 +66,35 @@ class BST {
   // Do not edit the line below.
   exports.BST = BST;
   
+  
+  
+  // Iterative Solution
+  
+  remove (value, parentNode=null) {
+    let currentNode = this;
+    while (currentNode!== null) {
+        if (value < currentNode.value) {parentNode = currentNode; currentNode = currentNode.left}
+        else if (value > currentNode.value) {parentNode = currentNode; currentNode = currentNode.right}
+        else {
+            if (currentNode.left !== null && currentNode.right !== null) {
+                currentNode.value = currentNode.right.getMinValue(); currentNode.right.remove(currentNode.value, currentNode)}
+            else if (parentNode = null) {
+                if (this.left !== null) {currentNode.left = this.left.left; currentNode.right=this.left.right; currentNode.value = this.left.value}
+                if (this.right !== null) {currentNode.left = this.right.left; currentNode.right = this.right.right; currentNode.value = this.right.value}
+                else {}
+            }
+            else if (currentNode = parentNode.left) {parentNode.left = (currentNode.left === null? currentNode.right: currentNode.left)}
+            else if (currentNode = parentNode.right) {parentNode.right = (currentNode.right === null? currentNode.left: currentNode.right)}
+            break;
+        }
+    }
+    return this
+}
+
+getminValue() {
+    let currentNode = this
+    while (currentNode.left !== null) {
+        currentNode = this.left
+    }
+    return currentNode.value
+}
