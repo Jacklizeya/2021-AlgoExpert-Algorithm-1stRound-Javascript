@@ -1,0 +1,17 @@
+function firstNonRepeatingCharacter(string) {
+  let array = string.split("")
+
+let totalLength = string.length
+
+for (i=0; i< totalLength; i++){
+    let newArray = array.map(a => a)
+    newArray.splice(i, 1)
+    
+    if (newArray.includes(array[i]) === false) {return i}
+}
+	
+return -1	
+}
+
+// Do not edit the line below.
+exports.firstNonRepeatingCharacter = firstNonRepeatingCharacter;
