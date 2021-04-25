@@ -2,9 +2,11 @@ function minHeightBst(array, tree = new BST(null)) {
     // Write your code here.
 
     // base part ********** this could be the first round ******************************** if not insert and return
-    if (array.length === 1) { if (tree.value === null) {tree.value = array[0]; return tree} else {tree.insert(array[0]); return} } 
+    if (array.length === 1) { if (tree.value === null) 
+    {tree.value = array[0]; return tree} else {tree.insert(array[0]); return} } 
 
-    if (array.length === 2) { if (tree.value === null) {tree.value = array[0]; tree.insert(array[1]); return tree} else {tree.insert(array[0]); tree.insert(array[1]); return} } 
+    if (array.length === 2) { if (tree.value === null) 
+    {tree.value = array[0]; tree.insert(array[1]); return tree} else {tree.insert(array[0]); tree.insert(array[1]); return} } 
     //recursive part for 3 and 3 more 
     let middleIndex = Math.floor(array.length/2)
     if (tree.value === null) {tree.value = array[middleIndex]} else {tree.insert(array[middleIndex])}
