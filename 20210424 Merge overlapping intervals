@@ -1,0 +1,17 @@
+function mergeOverlappingIntervals(array) {
+array.sort((a,b)=>a[0]-b[0])
+
+for (i=1; i < array.length; i++) {
+    if (array[i][0] <= array[i-1][1]) {       
+			if (array[i][1] > array[i-1][1]) {array[i-1][1] = array[i][1]}
+			array.splice(i, 1)
+			i--
+		}
+    
+}
+
+ return array
+}
+
+// Do not edit the line below.
+exports.mergeOverlappingIntervals = mergeOverlappingIntervals;
