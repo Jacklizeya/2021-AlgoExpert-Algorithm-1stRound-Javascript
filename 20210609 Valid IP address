@@ -1,0 +1,43 @@
+function validIPAddresses(string) {
+  // Write your code here.
+  let output = []
+let length = string.length
+
+for (i = 1; i < 4; i++) {
+    let stringOne = string.substring(0, i)
+    // console.log("stringOne", stringOne)
+    if (checkString(stringOne)) { 
+    for (j = i + 1; j < i + 4 && j < length - 1; j ++){
+        
+        let stringTwo = string.substring(i, j)
+        // console.log("stringTwo", stringTwo)
+        if (checkString(stringTwo)) {
+        for (k = j + 1; k < j + 4 && k < length  ; k ++ ){
+            console.log("before", "i", i, "j", j, "k", k)
+            let stringThree = string.substring(j, k)  
+            // console.log("stringThree", stringThree)
+            // if (! checkString(stringThree)) {break} 
+            let stringFour = string.substring(k, length)
+            // console.log("stringFour", stringFour)
+            if ( checkString(stringThree) && checkString(stringFour) )  
+            // console.log("after", i,j,k)
+            {console.log(`pass   ${stringOne}.${stringTwo}.${stringThree}.${stringFour}`)
+            output.push(`${stringOne}.${stringTwo}.${stringThree}.${stringFour}`)
+        } else {
+                console.log(`Did not pass ${stringOne}.${stringTwo}.${stringThree}.${stringFour}`)
+                }
+            }}
+        }}
+}
+
+function checkString(inputString) {
+    let qualified = true
+    if ((inputString.length > 1 && inputString[0] === "0") || parseInt(inputString) > 255 || inputString.length > 3) {qualified = false}
+    return qualified
+}
+
+return (output)
+}
+
+// Do not edit the line below.
+exports.validIPAddresses = validIPAddresses;
