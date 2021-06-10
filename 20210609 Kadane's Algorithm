@@ -1,0 +1,33 @@
+// The idea is to find negative numbers, including start and the end, use them as anchor point 
+// calculate the sum between all anchor point
+// The inital max should the the largest number
+
+const array = [-2, -1]
+
+const indexOfNegativeNumbers = []
+
+array.forEach((number, index)=>{
+    if (number < 0) {indexOfNegativeNumbers.push(index)}
+})
+
+indexOfNegativeNumbers.unshift(-1)
+indexOfNegativeNumbers.push(array.length)
+console.log(indexOfNegativeNumbers)
+
+let maxSum = Math.max(...array)
+console.log(maxSum)
+
+for (i = 0; i < indexOfNegativeNumbers.length-1; i++) {
+    for (j = i+1; j< indexOfNegativeNumbers.length; j++) {
+        console.log(i, j)
+        let subArray = array.slice(indexOfNegativeNumbers[i]+1, indexOfNegativeNumbers[j])
+        if (subArray.length === 0) {} else {
+            let sum = subArray.reduce((start, element) => start + element)
+            if (sum > maxSum) {maxSum = sum; console.log(maxSum)}
+        }
+    }
+}
+
+return maxSum
+
+console.log("after calculation", maxSum)
