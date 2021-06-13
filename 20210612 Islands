@@ -1,0 +1,45 @@
+const matrix = [
+    [1, 0, 0, 0, 0, 0],
+    [0, 1, 0, 1, 1, 1],
+    [0, 0, 1, 0, 1, 0],
+    [1, 1, 0, 0, 1, 0],
+    [1, 0, 1, 1, 0, 0],
+    [1, 0, 0, 0, 0, 1],
+]
+
+let xMax = matrix.length 
+let yMax = matrix[0].length 
+
+let matrixStorage = []
+for (i = 0; i< xMax; i++ ) {
+    matrixStorage[i] = []
+    for (j =0; j < yMax; j++) {
+        matrixStorage[i].push("unknown")
+    }
+}
+
+function checkTrue(x, y) {
+    console.log("enter function", x, y)
+    if (x < 0 || x >= xMax || y < 0 || y >= yMax) {console.log("outside the border"); return}
+    // in storage case: we use return so it does not continue, can not do that
+    if (matrixStorage[x][y] === true || matrixStorage[x][y] === false) {console.log("visited", x, y ); return}
+    // for sure true and for sure false
+    if (matrix[x][y] === 0) {console.log("zero case", x, y); matrixStorage[x][y] = false; console.log( matrixStorage[x][y]); return}
+
+    if (matrix[x][y] === 1) {console.log("one case", x, y); matrixStorage[x][y] = true; console.log( matrixStorage[x][y]); checkTrue(x-1, y); checkTrue(x+1, y); checkTrue(x, y-1); checkTrue(x, y+1); }
+    }
+
+for (i=0 ; i< yMax; i++) {checkTrue(0, i)}
+for (i=0 ; i< yMax; i++) {checkTrue(xMax - 1 , i)}
+for (i=1 ; i< xMax-1; i++) {checkTrue(i, 0)}
+for (i=1 ; i< xMax-1; i++) {checkTrue(i, yMax-1)}
+
+console.log(matrixStorage)
+
+for (i = 0; i< xMax; i++ ) {
+    for (j =0; j < yMax; j++) {
+        if (matrixStorage[i][j] === false || matrixStorage[i][j] === "unknown") {matrix[i][j] = 0}
+    }
+}
+
+console.log(matrix)
