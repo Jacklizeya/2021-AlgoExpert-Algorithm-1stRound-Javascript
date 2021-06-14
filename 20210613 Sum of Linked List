@@ -1,0 +1,46 @@
+// This is an input class. Do not edit.
+class LinkedList {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+function getValue(headNode) {
+	let sum = 0;
+	let i = 0;
+	let currentNode = headNode
+	do {
+		sum = sum + currentNode.value * Math.pow(10, i)
+		currentNode = currentNode.next
+		i ++
+	} while (currentNode !== null) 
+	console.log("sum", sum)
+	return sum
+}
+
+function sumOfLinkedLists(linkedListOne, linkedListTwo) {
+  // Write your code here.
+	sumValue = getValue(linkedListOne) + getValue(linkedListTwo)
+	console.log("sumValue",sumValue)
+	
+	let sumString = sumValue.toString()
+	let sumLength = sumString.length
+	console.log(sumLength)
+	let sumHead = new LinkedList(parseInt(sumString[sumLength - 1]))
+	let currentNode = sumHead
+	
+	console.log("before loop")
+	for (j = sumLength -2 ; j >= 0; j--) { 
+		console.log( "in loop", j, parseInt(sumString[j]))
+		currentNode.next = new LinkedList(parseInt(sumString[j]))
+		currentNode = currentNode.next
+	}
+	console.log("afterloop", sumHead)
+	
+  return sumHead;
+}
+
+// Do not edit the lines below.
+exports.LinkedList = LinkedList;
+exports.sumOfLinkedLists = sumOfLinkedLists;
