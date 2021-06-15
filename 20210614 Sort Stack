@@ -1,0 +1,32 @@
+function sortStack(stack) {
+  // Write your code here.
+  
+let reverseStack = []
+
+while (stack.length >= 1) {
+    reverseStack.push(stack.pop())
+}
+
+console.log(stack, reverseStack)
+
+while (reverseStack.length !== 0) {
+    console.log("round", reverseStack.length)
+    insert (reverseStack.pop())
+}
+
+function insert(newItem) {
+    console.log("stack and newItem", stack, newItem)
+    let temporaryBucket = []
+
+    while (stack.length !==0 )
+    {    
+        if (stack[stack.length-1] > newItem) {temporaryBucket.push(stack.pop())} else {break}
+    }
+
+    stack.push(newItem)
+    while (temporaryBucket.length !==0) {stack.push(temporaryBucket.pop())}
+}
+
+return stack
+	
+}
