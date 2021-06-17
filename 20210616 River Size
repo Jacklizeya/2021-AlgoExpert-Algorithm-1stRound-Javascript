@@ -1,0 +1,41 @@
+function riverSizes(matrix) {
+  // Write your code here.
+	let xMax = matrix.length 
+let yMax = matrix[0].length 
+
+let matrixStorage = []
+for (i = 0; i< xMax; i++ ) {
+    matrixStorage[i] = []
+    for (j =0; j < yMax; j++) {
+        matrixStorage[i].push("unknown")
+    }
+}
+
+let result = []
+
+for (i = 0; i< xMax; i++ ) {
+    for (j =0; j < yMax; j++) {
+        count = 0
+        checkTrue(i, j)
+        if (count) {result.push(count)}
+    }
+}
+
+
+
+function checkTrue(x, y) {
+    console.log("enter function", x, y)
+    if (x < 0 || x >= xMax || y < 0 || y >= yMax) {console.log("outside the border"); return}
+    // in storage case: we use return so it does not continue, can not do that
+    if (matrixStorage[x][y] === "visited") {console.log("visited", x, y ); return}
+    // for sure true and for sure false
+    if (matrix[x][y] === 0) {matrixStorage[x][y] = "visited"; console.log( matrixStorage[x][y]); return}
+
+    if (matrix[x][y] === 1) {matrixStorage[x][y] = "visited"; count ++;  console.log( matrixStorage[x][y]); checkTrue(x-1, y); checkTrue(x+1, y); checkTrue(x, y-1); checkTrue(x, y+1); }
+    }
+
+return result
+}
+
+// Do not edit the line below.
+exports.riverSizes = riverSizes;
