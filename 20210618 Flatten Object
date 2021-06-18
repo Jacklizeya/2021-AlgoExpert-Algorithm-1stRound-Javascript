@@ -1,0 +1,7 @@
+function flat(initialObject, finalObject = {}) {
+    for (let key in initialObject) {
+        if (typeof initialObject[key] !== "object") {finalObject[key] = initialObject[key]}
+        else {flat(initialObject[key], finalObject)}
+    }
+    return finalObject
+}
