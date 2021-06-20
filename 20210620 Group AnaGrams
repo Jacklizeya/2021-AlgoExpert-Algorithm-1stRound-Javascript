@@ -1,0 +1,26 @@
+// solution: use object to store it
+
+
+function groupAnagrams(words) {
+  // Write your code here.
+	
+let transform = words.map(element => element.split("").sort())
+
+console.log(transform)
+
+
+let object = {}
+
+for (i=0; i< words.length; i++) {
+    let key = transform[i].join("")
+    if (! object[key]) {object[key] = []; object[key].push(words[i])}
+    else {object[key].push(words[i])}
+}
+
+let result = Object.values(object)
+return result
+	
+}
+
+// Do not edit the line below.
+exports.groupAnagrams = groupAnagrams;
