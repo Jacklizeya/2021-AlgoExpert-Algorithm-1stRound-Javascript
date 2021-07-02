@@ -1,0 +1,29 @@
+function powerset(array) {
+  
+	let storage = {}
+
+
+	storage[array.join("")] = array
+
+
+	function peelOneLayer(inputArray) {
+			if (inputArray.length === 0) { return }
+
+
+
+			inputArray.forEach(
+					(element, index) => {
+							let afterFilterArray = inputArray.filter(a => a !== element)
+							if (!storage[afterFilterArray.join("")]) {storage[afterFilterArray.join("")] = afterFilterArray}
+							peelOneLayer(afterFilterArray)
+					}
+			)
+	}
+
+	peelOneLayer(array)
+
+	return (Object.values(storage))
+}
+
+// Do not edit the line below.
+exports.powerset = powerset;
