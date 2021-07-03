@@ -1,0 +1,36 @@
+// Something for array, do not mix for loop with i plus recursive, it will reset i and mess up everything
+// use forEach is much better
+// use ... operator to avoid multiple reference to the same thing
+
+
+
+
+
+function getPermutations(array) {
+  // Write your code here.
+	
+
+
+	let output = []
+
+	function cumulativeAdd(restArray, theOtherSide = []) {
+    console.log("line 7", restArray, theOtherSide)
+    if (restArray.length === 1) { output.push(restArray.concat(theOtherSide)); return}
+
+    restArray.forEach( element => 
+        {console.log("line11", restArray, element)
+        let leftReduceOne = [...restArray].filter(singleElement => singleElement !== element)
+        let rightAddOne = theOtherSide.concat(element)
+        console.log("line14", leftReduceOne, rightAddOne)
+        cumulativeAdd(leftReduceOne, rightAddOne )}
+    )
+}
+
+cumulativeAdd(array)
+
+return(output)
+	
+}
+
+// Do not edit the line below.
+exports.getPermutations = getPermutations;
