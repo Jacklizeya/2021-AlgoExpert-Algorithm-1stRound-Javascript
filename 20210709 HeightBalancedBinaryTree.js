@@ -4,38 +4,38 @@ class BinaryTree {
     this.value = value;
     this.left = null;
     this.right = null;
+    this.parent = null;
   }
 }
 
-function heightBalancedBinaryTree(tree) {
+function findSuccessor(tree, node) {
   // Write your code here.
+	let array = []
+	let marker
 	
-	calculateHeight(tree)
-  
-	let result = true
-	function checkBalance(tree) {
-	console.log("checkbalance", tree.value)
-	if (tree.left === null && tree.right === null) {return}
-	if (tree.left === null && tree.right !== null) { if (tree.right.height > 1) {result = false}; return}
-	if (tree.left !== null && tree.right === null) { if (tree.left.height > 1) {result = false}; return}
-	if (tree.left !== null && tree.right !== null) { if (Math.abs(tree.right.height - tree.left.height > 1)) {result = false; return}; checkBalance(tree.left); checkBalance(tree.right); return}
+	function traverse(tree) {
+		
+	if (tree.left === null && tree.right === null) { add(tree); return}
+	if (tree.left === null && tree.right !== null) { add(tree); traverse(tree.right); return}
+	if (tree.left !== null && tree.right === null) { traverse(tree.left); add(tree); return}
+	if (tree.left !== null && tree.right !== null) { traverse(tree.left); add(tree); traverse(tree.right); return}
 	}
 	
-	checkBalance(tree)
-	console.log(result)
-  return result;
+	function add(tree) {
+		console.log(tree)
+		array.push(tree)
+		if (tree.value === node.value) {marker = array.length}
+	}
+	
+	traverse(tree)
+	console.log(array)
+	console.log(node.value)
+	console.log("result", array[marker])
+	
+	return array[marker]
+
 }
-
-function calculateHeight(tree) {
-	console.log(tree.value)
-	if (tree.left === null && tree.right === null) {tree.height = 1; console.log("get to the bottom", tree); return 1; }
-	if (tree.left === null && tree.right !== null) {tree.height = 1 + calculateHeight(tree.right); return tree.height}
-	if (tree.left !== null && tree.right === null) {tree.height = 1 + calculateHeight(tree.left); return tree.height}
-	if (tree.left !== null && tree.right !== null) {tree.height = 1 + Math.max(calculateHeight(tree.left), calculateHeight(tree.right)); return tree.height}
-}
-
-
 
 // Do not edit the lines below.
 exports.BinaryTree = BinaryTree;
-exports.heightBalancedBinaryTree = heightBalancedBinaryTree;
+exports.findSuccessor = findSuccessor;
