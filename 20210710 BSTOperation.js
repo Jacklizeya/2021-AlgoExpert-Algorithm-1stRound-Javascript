@@ -1,9 +1,3 @@
-// This is the code pass 80% of the test
-
-// Do not edit the class below except for
-// the insert, contains, and remove methods.
-// Feel free to add new properties and methods
-// to the class.
 // Do not edit the class below except for
 // the insert, contains, and remove methods.
 // Feel free to add new properties and methods
@@ -55,7 +49,7 @@ class BST {
 			}
 		if (value === this.value && this.right !== null  && this.left === null) {this.value = this.right.value; this.left = this.right.left; this.right = this.right.right; return this }
 		if (value === this.value && this.right === null  && this.left !== null) {this.value = this.left.value; this.right = this.left.right; this.left = this.left.left ; return this}
-		if (value === this.value && this.right === null  && this.left === null) {if (this === parent.left) {parent.left = null} else {parent.right = null}; return this}
+		if (value === this.value && this.right === null  && this.left === null) {if (parent === null) {return} else {if (this === parent.left) {parent.left = null} else {parent.right = null}; return this}}
 		if (value < this.value && this.left !== null) { this.left.remove(value, this); return this}
 		if (value < this.value && this.left === null) {return this}
 		if (value > this.value && this.right !== null) {this.right.remove(value, this); return this}
