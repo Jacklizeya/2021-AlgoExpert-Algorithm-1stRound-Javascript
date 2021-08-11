@@ -32,3 +32,34 @@ function longestSubstringWithoutDuplication(string) {
 
 // Do not edit the line below.
 exports.longestSubstringWithoutDuplication = longestSubstringWithoutDuplication;
+
+
+
+/// a more efficient solution found
+
+function longestSubstringWithoutDuplication(string) {
+  // Write your code here.
+	let startIndex = 0
+	let longestSubLength = 0
+	let longestSub = ""
+	let storage = {}
+	let currentLength = 0
+	
+	for (let i = 0; i < string.length; i++) {
+		console.log(i, startIndex, string[i], storage[string[i]])
+		if (!storage[string[i]] && storage[string[i]] !==0 ) {storage[string[i]] = i} else {
+		startIndex = Math.max(startIndex, storage[string[i]] + 1)
+		storage[string[i]] = i
+		}
+		currentLength = i - startIndex + 1
+		if (currentLength > longestSubLength) {longestSubLength = currentLength; longestSub = string.substring(startIndex, i+1)}
+		console.log(i, startIndex)
+	}
+	
+	console.log(longestSub)
+	return longestSub
+}
+
+// Do not edit the line below.
+exports.longestSubstringWithoutDuplication = longestSubstringWithoutDuplication;
+
