@@ -63,3 +63,59 @@ function makeAKey(a , b){
 
 // Do not edit the line below.
 exports.ambiguousMeasurements = ambiguousMeasurements;
+
+////////////////// A smarter way of doing things
+////////////////// I am not going to evaluate anywhere has been visited! duplicate work
+
+function ambiguousMeasurements(measuringCups, low, high) {
+  // Write your code here.
+	// does it meet minimum accuracy?
+measuringCups.sort((a, b) => b[1] - a[1])
+console.log(measuringCups, low, high)
+let accuracy = measuringCups.map(cup => cup[1] - cup[0])
+console.log(Math.min(...accuracy), high - low)
+if (Math.min(...accuracy) > high - low) {return false}
+	
+// we must maintain the accuracy, introduce big cup will mess up the accuracy	
+measuringCups = measuringCups.filter(cup => cup[1]- cup[0] <= high - low)
+
+
+let status = "notfound"
+let result = false
+let storageForVisited = {}
+
+function addingCups(lower, higher)
+  {
+	// console.log(lower, higher, storageForVisited[makeAKey(lower, higher)])
+
+    if (status === "found") {return}
+	if (storageForVisited[makeAKey(lower, higher)] === "visited") {return}
+    // go over the range case
+    if (lower > high || (lower > low && higher > high) || higher > high || higher - lower > high - low) {
+        storageForVisited[makeAKey(lower, higher)] === "visited"
+        return}
+    // I found it case
+    if (lower >= low && higher <= high) {result = true; status = "found"; console.log("range", lower, higher); storageForVisited[makeAKey(lower, higher)] === "visited"; return}
+    
+    // keep looking case
+    // console.log("key", makeAKey(lower, higher)) 
+    storageForVisited[makeAKey(lower, higher)] = "visited"
+    // console.log("value", )
+    // recursive function to keep adding, generate paths
+    measuringCups.forEach(cup => {
+        addingCups(lower + cup[0], higher + cup[1])})
+    }
+  
+// Generate a key
+function makeAKey(a , b){
+	return a + ":" + b
+}
+
+addingCups(0, 0)
+console.log(result, status)
+return result
+}
+
+// Do not edit the line below.
+exports.ambiguousMeasurements = ambiguousMeasurements;
+
