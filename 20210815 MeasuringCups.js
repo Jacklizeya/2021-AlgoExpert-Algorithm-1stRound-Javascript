@@ -1,4 +1,5 @@
 /// The brute force approach, use DFS, something need to be optimized
+/// Tried storage hash map, tried to use the bigger ones first, but still not able to pass all test
 
 function ambiguousMeasurements(measuringCups, low, high) {
   // Write your code here.
