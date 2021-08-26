@@ -1,4 +1,5 @@
 // Only pass 4 cases
+// Just one change: if no first bigger, then just move to next one will increase to 8/11
 
 // This is the class of the input linked list.
 class LinkedList {
@@ -22,7 +23,7 @@ function rearrangeLinkedList(head, k) {
 			if (!firstSmaller) {if (currentNode.value < k) {firstSmaller = currentNode; head = firstSmaller}}   
 		  if (!lastSmaller) {if (currentNode.value < k) {lastSmaller = currentNode}}
 		
-			if (currentNode.value >= k) {
+			if (currentNode.value >= k || !firstBigger) {
 				previous = currentNode
 				currentNode = currentNode.next
 			} else {
@@ -39,3 +40,4 @@ function rearrangeLinkedList(head, k) {
 // Do not edit the lines below.
 exports.LinkedList = LinkedList;
 exports.rearrangeLinkedList = rearrangeLinkedList;
+
