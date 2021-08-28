@@ -1,7 +1,30 @@
-// success rate is 12/15 right now
+let airports = ["BGI", "CDG", "DEL", "DOH", "DSM", "EWR", "EYW", "HND", "ICN", "JFK", "LGA", "LHR", "ORD", "SAN", "SFO", "SIN", "TLV", "BUD"]
+let routes = [
+    ["DSM", "ORD"],
+    ["ORD", "BGI"],
+    ["BGI", "LGA"],
+    ["SIN", "CDG"],
+    ["CDG", "DEL"],
+    ["DEL", "DOH"],
+    ["DOH", "SIN"],
+    ["EWR", "HND"],
+    ["HND", "ICN"],
+    ["ICN", "JFK"],
+    ["JFK", "LGA"],
+    ["EYW", "LHR"],
+    ["LHR", "SFO"],
+    ["SFO", "SAN"],
+    ["SAN", "EYW"]
+  ]
 
-function airportConnections(airports, routes, startingAirport) {
-  // Write your code here.
+let startingAirport = "LGA"
+
+/*
+1. Find those one without any upstream
+2. Find upstream with loops
+3. Find the rest by loops
+*/
+
 let parentStorage = {}
 for (let route of routes) {
     if (!parentStorage[route[1]]) {
@@ -11,7 +34,7 @@ for (let route of routes) {
         parentStorage[route[1]].parents.push(route[0])
     }
 }
-console.log(parentStorage)
+
 let haveParents = []
 for (let key in parentStorage) {
     haveParents.push(key)
@@ -20,8 +43,6 @@ console.log(haveParents)
 
 let noParent = airports.filter(airport => !haveParents.includes(airport))
 console.log(noParent)
-
-
 
 for (let element of noParent) {
     routes.push([startingAirport, element])
@@ -55,41 +76,41 @@ console.log("downStreamqueue", downStreamqueue)
 let noCovered = airports.filter(airport => !downStreamqueue.includes(airport))
 console.log(noCovered)
 
-
-// let upStreamqueue = [startingAirport]
-// startingIndex = 0
-// while (startingIndex < upStreamqueue.length) {
-//     let currentAirport = upStreamqueue[startingIndex]
-//     console.log(">> currentAirport", currentAirport)
-//     if (parentStorage[currentAirport]) {parentStorage[currentAirport].parents.forEach(parent => {
-//         if (!downStreamqueue.includes(parent)) {
-//             if (parentStorage[parent].visited) {if (!noParent.includes(parent)) {noParent.push(parent)}}
-//             else {upStreamqueue.push(parent)}
-//         } 
-//     })}
-
-//     if (parentStorage[currentAirport]) {parentStorage[currentAirport].visited = true} else {parentStorage[currentAirport] = {visited: true}} 
-//     startingIndex++
-// }
-
-function DFS(currentAirport, path = []) {
-    console.log("DFS CurrentAirport", currentAirport)
-    if (path.includes(currentAirport)) {if (!noParent.includes(currentAirport)) {console.log("find one loop", currentAirport); noParent.push(currentAirport)}; return}
-    if (parentStorage[currentAirport]) {parentStorage[currentAirport].parents.forEach(parent => {
-        if (!downStreamqueue.includes(parent)) {
-            path.push(currentAirport)
-            DFS(parent, path)
-            path.pop()
-        } 
+function upstreamDFS(currentAirport, path = []) {
+    // console.log("upstreamDFS CurrentAirport", currentAirport, path, parentStorage[currentAirport])
+    if (path.includes(currentAirport)) {
+        // console.log("here"); 
+        if (!noParent.includes(currentAirport)) {
+        // console.log("find one loop", currentAirport); 
+        noParent.push(currentAirport)}; 
+        downStreamqueue.push(...path); 
+        noCovered = noCovered.filter(element => !path.includes(element)); return}
+    if (parentStorage[currentAirport]) {
+        console.log("there"); 
+        parentStorage[currentAirport].parents.forEach(parent => {
+            // console.log(parent); 
+            // console.log(downStreamqueue);
+                if (!downStreamqueue.includes(parent)) {
+                    // console.log("line 96")
+                    path.push(currentAirport)
+                    upstreamDFS(parent, path)
+                    path.pop()
+                } else {
+                    // console.log("line 96"); 
+                    return}
     })}
 }
 
-DFS(startingAirport)
 
+upstreamDFS(startingAirport)
+noCovered = airports.filter(airport => !downStreamqueue.includes(airport))
+// console.log("line 108", downStreamqueue, noCovered)
+// upstreamDFS(noCovered[0])
+// console.log("line 110", downStreamqueue, noCovered)
+// upstreamDFS(noCovered[0])
+// console.log("line 112", downStreamqueue, noCovered)
+while (noCovered.length !== 0) {upstreamDFS(noCovered[0])}
 withoutItself = noParent.filter(element => element !== startingAirport)
-console.log("no parent", withoutItself)
+console.log("no parent", withoutItself, downStreamqueue)
 console.log(withoutItself.length)
 return(withoutItself.length)
-}
-// Do not edit the line below.
-exports.airportConnections = airportConnections;
