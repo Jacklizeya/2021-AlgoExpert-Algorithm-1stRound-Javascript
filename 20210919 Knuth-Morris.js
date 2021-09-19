@@ -1,12 +1,8 @@
-// this is a solution can cover 10/12
-
-
 function knuthMorrisPrattAlgorithm(string, substring) {
-	// let substring = "aefcdaefeaefcd"
-	// let string = "aefcdfaecdaefaefcdaefeaefcdcdeae"
+  // Write your code here.
+// 	let substring = "fawfawfawfawfa"
+// let string = "testwafwafawfawfawfawfawfawfawfa"
 let target = substring.length - 1
-
-
 
 let storage = {}
 function generateMap(string) {
@@ -33,23 +29,25 @@ for (let k = 0; k < string.length; k++) {
   if (string[k] === substring[currentIndexInSmall + 1]) {
     console.log("k and sitatuion", k, "match")
     currentIndexInSmall++
-  } else if (string[k] !== substring[currentIndexInSmall + 1] && (storage[currentIndexInSmall] === -1 || currentIndexInSmall === -1)) {
-    console.log("k and sitatuion", k, "do not match and nothing similar", currentIndexInSmall)
-    currentIndexInSmall = -1
-	
+  } else {
+    // not the same
+    if (currentIndexInSmall === -1) {
+        console.log("k and sitatuion", k, "do not match and has not started yet", currentIndexInSmall)
+        currentIndexInSmall = -1
+        } 
+    else {
+          console.log("k and sitatuion", k, "do not match, has started, and nothing similar or something similar", currentIndexInSmall)
+          currentIndexInSmall = storage[currentIndexInSmall]
+          k--}      
   }
-  else {
-    console.log("k and sitatuion", k, "do not match but can keep some")
-    currentIndexInSmall = storage[currentIndexInSmall]
-
-    k--
-  }
+  
+  runCount++
+  if (runCount > 70) { break; }
 
   if (currentIndexInSmall === target) { console.log("find it!"); return true }
-
+  
 }
-return false
-
+  return false
 }
 
 // Do not edit the line below.
