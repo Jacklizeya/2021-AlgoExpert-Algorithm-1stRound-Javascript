@@ -11,13 +11,16 @@ class LRUCache {
 
   insertKeyValuePair(key, value) {
     // Write your code here.
+		console.log("line14")
 		if (!(key in this.cache))	{
 			if (this.currentSize === this.maxSize) {
+				console.log("reach max capacity")
 				this.evictLeastRecent()
 			} else {
 				this.currentSize++
 			}
 			this.cache[key] = new DoubleLinkedListNode(key, value)
+			console.log("line22", this.cache[key])
 		}
 		else {
 			this.cache[key].value = value 
@@ -30,7 +33,9 @@ class LRUCache {
 	// return the value then update the linkedList
   getValueFromKey(key) {
     // Write your code here.
-		if (!key in this.cache) {return null}
+		console.log("line34")
+		if (!(key in this.cache)) {return null}
+		
 		this.doubleLinkedList.setHeadTo(this.cache[key])
 		return this.cache[key].value
   }
@@ -38,13 +43,14 @@ class LRUCache {
   // This one is pretty straight forward
   getMostRecentKey() {
     // Write your code here.
-		if (this.doubleLinkedList.head === null) {return} else {return this.doubleLinkedList.head}
+		if (this.doubleLinkedList.head === null) {return} else {return this.doubleLinkedList.head.key}
   }
 	
 	evictLeastRecent() {
+		console.log("going to evit", this.doubleLinkedList)
+		let keyToRemove = this.doubleLinkedList.tail.key
 		this.doubleLinkedList.removeTail()
-		// console.log("line45", this.doubleLinkedList)
-		if (this.doubleLinkedList.tail.key) {delete this.cache[this.doubleLinkedList.tail.key]}
+		delete this.cache[keyToRemove]
 	}
 }
 
@@ -61,34 +67,36 @@ class DoubleLinkedList {
 	3. list is more than single, could be the head, could be the tail, could be in the middle 
 	*/
 	setHeadTo(node) {
-		
+		console.log("line68", node, this.head)
 		if (this.head === null) {
+			  console.log("line70")
 	  		this.head = node
 			  this.tail = node
-		}
-		else if (this.tail === this.head) {
+			  console.log("finish setting", this.head)
+		} else if (this.tail === this.head) {
 				if (this.head === node) {return} 
 			  else {
 					this.head = node
 					this.head.next = this.tail
 					this.tail.prev = this.head
 				}
-		}
-		else {
+		}	else {
 			if (this.head === node) {return}
 			else if (this.tail === node) {
 				this.removeTail(); 
+				console.log("line81")
 				node.removeConnectionsToLinkedList(); 
 				this.head.prev = node; 
 				node.next = this.head; 
 				this.head = node}
 			else {
+				console.log("line87")
 				node.removeConnectionsToLinkedList(); 
 				this.head.prev = node; 
 				node.next = this.head; 
 				this.head = node}
 			}
-		 console.log("set head here", this.head.key, this.head.prev, this.tail.key, this.tail.next)
+		 console.log("set head here", this.head)
 		}
 	
 	/*
@@ -121,6 +129,7 @@ class DoubleLinkedListNode  {
 	}
 	// you can call it remove bindings
 	removeConnectionsToLinkedList() {
+		console.log("removenode", this.key)
 		if (this.prev !== null) {this.prev.next = this.next}
 		if (this.next !== null) {this.next.prev = this.prev}
 		this.prev = null
