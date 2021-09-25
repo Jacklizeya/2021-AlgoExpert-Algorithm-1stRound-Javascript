@@ -1,67 +1,9 @@
-// Now I am doubting on of the edge case, emailed AlgoExpert and looking for reply
-//   "edges": [
-//     [1, 2, 3, 5],
-//     [0, 2],
-//     [0, 1],
-//     [0, 4, 5],
-//     [3, 5],
-//     [3, 4, 0]
-//   ]
-// 
-// I donot think this is a double - edge - graph
-
-
-
-function twoEdgeConnectedGraph(edges) {
-  // Write your code here.
-	let result = true
-	
-	// For the edge cases
-	if (edges.length === 0) {return true}
-	if (edges.every(element => element.length === 0)) {if (edges.length == 1) {return true} else {return false}}
-	
-	function removeVertice(removeIndex) {
-    let newEdges = [...edges]
-    newEdges.splice(removeIndex, 1, [])
-    let newEdgesWithoutRemoveIndex = newEdges.map(element => element.filter(subElement => subElement !== removeIndex))
-    console.log(newEdgesWithoutRemoveIndex)
-    return newEdgesWithoutRemoveIndex
-} 
-
-
-function BFStraverse(graph, queue, positionInQueue) {
-    console.log("positioninQueue and queue", queue, positionInQueue)
-    if (queue.length === graph.length - 1 ) {return true}
-    if (positionInQueue > queue.length - 1) {return false}
-	
-    if (graph[queue[positionInQueue]].length !== 0) {
-        graph[queue[positionInQueue]].forEach(element => {
-            if (! queue.includes(element)) {queue.push(element)}
-        })}
-	
-	  return BFStraverse(graph, queue, positionInQueue + 1)
-}
-
-
-edges.forEach((edge, index)=>{ let newArray = removeVertice(index); if (index === 0) {result = result && BFStraverse(newArray, newArray[1], 0)} 
-															else {result = result && BFStraverse(newArray, newArray[0], 0)}})
-  
-	
-	console.log(result)
-	return result
-}
-
-// Do not edit the line below.
-exports.twoEdgeConnectedGraph = twoEdgeConnectedGraph;
-
-// Solution on September 24, 2021
-
 function twoEdgeConnectedGraph(edges) {
   // Write your code here.
 	let counts = edges.length
 	
 	if (edges.every(edge => edge.length === 0)) { if (edges.length === 1 || edges.length === 0) {return true} else {return false}}
-  if (!(edges.every(edge => edge.length > 1))) {return false}
+	if (!(edges.every(edge => edge.length > 1))) {return false}
 
 	
 	// Brute force solution
@@ -83,31 +25,52 @@ function twoEdgeConnectedGraph(edges) {
   return result;
 	
 	function tryToRemoveOneEdge(edge) {
-		let newAllEdges = JSON.parse(JSON.stringify(edges))
+		// let newAllEdges = JSON.parse(JSON.stringify(edges))
 		let index1 = edge[0]
 		let index2 = edge[1]
-		newAllEdges[index1] = newAllEdges[index1].filter(element => element!== index2)
-		newAllEdges[index2] = newAllEdges[index2].filter(element => element!== index1)
-		console.log("BFS", BFS(newAllEdges))
-		return BFS(newAllEdges)
+		// newAllEdges[index1] = newAllEdges[index1].filter(element => element!== index2)
+		// newAllEdges[index2] = newAllEdges[index2].filter(element => element!== index1)
+		// console.log("BFS", BFS(newAllEdges))
+		
+		for (let i = 0; i < edges[index1].length; i++) {
+			if (edges[index1][i] === index2) {edges[index1][i] = -1}
+		}
+		
+		for (let i = 0; i < edges[index1].length; i++) {
+			if (edges[index2][i] === index1) {edges[index2][i] = -1}
+		}
+		
+		
+		let result = BFS(edges)
+		
+		for (let i = 0; i < edges[index1].length; i++) {
+			if (edges[index1][i] === -1) {edges[index1][i] = index2}
+		}
+		
+		for (let i = 0; i < edges[index1].length; i++) {
+			if (edges[index2][i] === -1) {edges[index2][i] = index1}
+		}
+		
+		
+		
+		return result
 	}
 		
 	function BFS(newAllEdges) {
 		console.log("newAllEdges", newAllEdges)
 		let queue = [0]
-		let i = 0
-		while (i < queue.length) {
-			let currentLocation = queue[i]
+		let visited = {}
+		while (queue.length > 0) {
+			let currentLocation = queue.shift()
+			visited[currentLocation] = visited
 			let nextOnes = newAllEdges[currentLocation]
-			nextOnes.forEach(nextOne => {if (!queue.includes(nextOne)) {queue.push(nextOne)}})
-			i++
+			nextOnes.forEach(nextOne => {if (!queue.includes(nextOne) && !(nextOne in visited) && (nextOne !== -1)) {queue.push(nextOne)}})
 		}
 		console.log("queue and counts", queue, counts)
-		if (counts === queue.length) {return true} else {return false}
+		if (counts === Object.keys(visited).length) {return true} else {return false}
 	}
 	
 }
 
 // Do not edit the line below.
 exports.twoEdgeConnectedGraph = twoEdgeConnectedGraph;
-
