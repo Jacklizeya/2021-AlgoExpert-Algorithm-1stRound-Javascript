@@ -31,4 +31,22 @@ function BST(input, leftIndex = 0, rightIndex = array.length - 1 ) {
 // Do not edit the line below.
 exports.indexEqualsValue = indexEqualsValue;
 
+// New Solution on September 25
+
+function indexEqualsValue(array) {
+  // Write your code here.
+	let minIndex = Infinity
+	BFS(0, array.length - 1)
+	if (minIndex === Infinity) {return -1} else {return minIndex}
+	
+	function BFS(leftIndex, rightIndex) {
+		if (leftIndex > rightIndex) {return}
+
+		let middleIndex = Math.floor((leftIndex + rightIndex)/2)
+		if (array[middleIndex] === middleIndex) {minIndex = Math.min(minIndex, middleIndex); BFS(leftIndex, middleIndex - 1)}
+		else if (array[middleIndex] > middleIndex)  {BFS(leftIndex, middleIndex - 1)}
+		else {BFS(middleIndex + 1, rightIndex)}
+	}
+	
+}
 
