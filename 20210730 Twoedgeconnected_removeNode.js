@@ -53,3 +53,61 @@ edges.forEach((edge, index)=>{ let newArray = removeVertice(index); if (index ==
 
 // Do not edit the line below.
 exports.twoEdgeConnectedGraph = twoEdgeConnectedGraph;
+
+// Solution on September 24, 2021
+
+function twoEdgeConnectedGraph(edges) {
+  // Write your code here.
+	let counts = edges.length
+	
+	if (edges.every(edge => edge.length === 0)) { if (edges.length === 1 || edges.length === 0) {return true} else {return false}}
+  if (!(edges.every(edge => edge.length > 1))) {return false}
+
+	
+	// Brute force solution
+	// get all the edges
+	let allEdges = []
+	for (let i=0 ; i<edges.length; i++) {
+		for (let j=0; j < edges[i].length; j++) {
+			allEdges.push([i, edges[i][j]])
+		}
+	}
+	
+
+
+	// create the new adjacent list
+	let result = true
+	// for Each can not really return anything
+	allEdges.forEach(edge => {if (!tryToRemoveOneEdge(edge)) {result = result && false}})
+	// verify true or false
+  return result;
+	
+	function tryToRemoveOneEdge(edge) {
+		let newAllEdges = JSON.parse(JSON.stringify(edges))
+		let index1 = edge[0]
+		let index2 = edge[1]
+		newAllEdges[index1] = newAllEdges[index1].filter(element => element!== index2)
+		newAllEdges[index2] = newAllEdges[index2].filter(element => element!== index1)
+		console.log("BFS", BFS(newAllEdges))
+		return BFS(newAllEdges)
+	}
+		
+	function BFS(newAllEdges) {
+		console.log("newAllEdges", newAllEdges)
+		let queue = [0]
+		let i = 0
+		while (i < queue.length) {
+			let currentLocation = queue[i]
+			let nextOnes = newAllEdges[currentLocation]
+			nextOnes.forEach(nextOne => {if (!queue.includes(nextOne)) {queue.push(nextOne)}})
+			i++
+		}
+		console.log("queue and counts", queue, counts)
+		if (counts === queue.length) {return true} else {return false}
+	}
+	
+}
+
+// Do not edit the line below.
+exports.twoEdgeConnectedGraph = twoEdgeConnectedGraph;
+
